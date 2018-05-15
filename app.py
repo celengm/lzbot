@@ -69,15 +69,15 @@ def auth_gss_client(path, scopes):
 gss_scopes = ['https://spreadsheets.google.com/feeds']
 gss_client = auth_gss_client(auth_json_path, gss_scopes)
 
-def leaderboard():
+def leaderboard(key):
 	list_top = []
 	list_name = []
 	list_score = []
-	get_score_sheet(list_top,list_name,list_score,2)
+	get_score_sheet(list_top,list_name,list_score,key)
 	# print (list_top,list_name,list_score)
 	score_str = ""
 	for i in range(0,10):
-		score_str += (str(list_top[i])+"\t"+list_name[i]+"\t"+list_score[i]+"\n")
+		score_str += (str(list_top[i])+"\t"+list_score[i]+"\n"+list_name[i])
 	# print(score_str)
 	return score_str
 
@@ -116,7 +116,10 @@ def active_mode(user_message,event):
 		message = TextSendMessage(text='我已經正在說話囉，歡迎來跟我互動 ^_^ ')
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["即時排名","即時戰況"]):
-		message = TextSendMessage(text = leaderboard())
+		message = TextSendMessage(text = leaderboard(3))
+		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["時速"]):
+		message = TextSendMessage(text = leaderboard(7))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["脫褲子","脫內褲"]):
 		score_str = your_pants()
