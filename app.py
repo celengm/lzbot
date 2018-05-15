@@ -135,7 +135,7 @@ def active_mode(user_message,event):
 	elif(user_message in ["場數差"]):
 		message = TextSendMessage(text = leaderboard(6))
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["追擊時間"]):
+	elif(user_message in ["追擊時間","脫褲子","脫內褲"]):
 		message = TextSendMessage(text = leaderboard(7))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["時速"]):
@@ -143,11 +143,6 @@ def active_mode(user_message,event):
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["場速"]):
 		message = TextSendMessage(text = leaderboard(9))
-		line_bot_api.reply_message(event.reply_token,message)
-		# line_bot_api.push_message(user_id,TextSendMessage(text=score_str))
-	elif(user_message in ["脫褲子","脫內褲"]):
-		score_str = your_pants()
-		message = TextSendMessage(text=score_str)
 		line_bot_api.reply_message(event.reply_token,message)
 	
 # 監聽所有來自 /callback 的 Post Request
