@@ -118,7 +118,10 @@ def active_mode(user_message,event):
 	elif(user_message in ["即時排名","即時戰況"]):
 		message = TextSendMessage(text = leaderboard())
 		line_bot_api.reply_message(event.reply_token,message)
-
+	elif(user_message in ["脫褲子","脫內褲"]):
+		score_str = your_pants()
+		message = TextSendMessage(text=score_str)
+		line_bot_api.reply_message(event.reply_token,message)
 	
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
