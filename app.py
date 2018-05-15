@@ -127,13 +127,13 @@ def active_mode(user_message,event):
 		message = TextSendMessage(text = leaderboard(2))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["分數差"]):
-		message = TextSendMessage(text = leaderboard(4)
+		message = TextSendMessage(text = leaderboard(4))
 		line_bot_api.reply_message(event.reply_token,message)		
 	elif(user_message in ["場數差"]):
-		message = TextSendMessage(text = leaderboard(5)
+		message = TextSendMessage(text = leaderboard(5))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["追擊時間"]):
-		message = TextSendMessage(text = leaderboard(6)
+		message = TextSendMessage(text = leaderboard(6))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["時速"]):
 		message = TextSendMessage(text = leaderboard(7))
