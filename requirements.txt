@@ -15,4 +15,3 @@ uritemplate==3.0.0
 urllib3==1.22
 line-bot-sdk
 flask
-pytz

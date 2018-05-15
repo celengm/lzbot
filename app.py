@@ -195,7 +195,7 @@ def callback():
 def handle_message(event):
 	global timezone
 	global mode 
-	print("now: "+str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")))	print("now: "+str(today))
+	print("now: "+str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")))
 	print(event)		
 	user_message = event.message.text
 	
