@@ -70,7 +70,6 @@ gss_scopes = ['https://spreadsheets.google.com/feeds']
 gss_client = auth_gss_client(auth_json_path, gss_scopes)
 
 def leaderboard(key):
-	global today
 	list_top = []
 	list_name = []
 	list_score = []
@@ -80,7 +79,7 @@ def leaderboard(key):
 	for i in range(0,10):
 		score_str += (str(list_top[i])+" --- "+list_score[i]+"\n【"+list_name[i]+"】\n")
 	# print(score_str)
-	score_str += str(today)
+	score_str += str(time.strftime("%c"))
 	return score_str
 
 # def your_pants():
