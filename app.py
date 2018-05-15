@@ -79,19 +79,20 @@ def leaderboard(key):
 	for i in range(0,10):
 		score_str += (str(list_top[i])+" --- "+list_score[i]+"\n【"+list_name[i]+"】\n")
 	# print(score_str)
+	score_str += str(today)
 	return score_str
 
-def your_pants():
-	list_top = []
-	list_name = []
-	list_time = []
-	get_score_sheet(list_top,list_name,list_time,6)
-	# print (list_top,list_name,list_score)
-	score_str = ""
-	score_str += ("目前" + str(list_top[0])+"為\t"+list_name[0]+"\t\n")
-	for i in range(1,10):
-		score_str += (list_name[i]+"\t還需要 "+list_time[i]+" 才能脫 "+list_name[i-1]+" 的褲子\n")
-	return score_str
+# def your_pants():
+# 	list_top = []
+# 	list_name = []
+# 	list_time = []
+# 	get_score_sheet(list_top,list_name,list_time,6)
+# 	# print (list_top,list_name,list_score)
+# 	score_str = ""
+# 	score_str += ("目前" + str(list_top[0])+"為\t"+list_name[0]+"\t\n")
+# 	for i in range(1,10):
+# 		score_str += (list_name[i]+"\t還需要 "+list_time[i]+" 才能脫 "+list_name[i-1]+" 的褲子\n")
+# 	return score_str
 
 def readme():
 	with open('readme.txt', 'r') as f:
