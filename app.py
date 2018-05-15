@@ -70,6 +70,7 @@ gss_scopes = ['https://spreadsheets.google.com/feeds']
 gss_client = auth_gss_client(auth_json_path, gss_scopes)
 
 def leaderboard(key):
+	global today
 	list_top = []
 	list_name = []
 	list_score = []
