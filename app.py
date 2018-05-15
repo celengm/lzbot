@@ -35,7 +35,7 @@ handler = WebhookHandler('2bd5cc6f366fd9c567693ab4e18a6ea2')
 auth_json_path = "./auth.json"
 
 now = datetime.datetime.now()
-today = time.strftime("%c")
+today = time.strftime(8,"%c")
 mode = 1
 
 def get_score_sheet(list_top,list_name,list_target,target):
@@ -79,7 +79,7 @@ def leaderboard(key):
 	for i in range(0,10):
 		score_str += (str(list_top[i])+" --- "+list_score[i]+"\n【"+list_name[i]+"】\n")
 	# print(score_str)
-	score_str += str(time.strftime("%c"))
+	score_str += str(time.strftime(8,"%c"))
 	return score_str
 
 # def your_pants():
