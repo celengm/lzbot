@@ -50,7 +50,7 @@ def get_score_sheet(list_top,list_name,list_target,target):
 
 	# Call the Sheets API
 	SPREADSHEET_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
-	RANGE_NAME = 'A2:M11'
+	RANGE_NAME = 'A2:Z11'
 	result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
 												 range=RANGE_NAME).execute()
 	values = result.get('values', [])
@@ -77,7 +77,7 @@ def leaderboard(key):
 	# print (list_top,list_name,list_score)
 	score_str = ""
 	for i in range(0,10):
-		score_str += (str(list_top[i])+"\t"+list_score[i]+"\n"+list_name[i]＋"\n")
+		score_str += (str(list_top[i])+"\t"+list_score[i]+"\n"+list_name[i]+"\n")
 	# print(score_str)
 	return score_str
 
@@ -115,7 +115,7 @@ def active_mode(user_message,event):
 		mode = 1
 		message = TextSendMessage(text='我已經正在說話囉，歡迎來跟我互動 ^_^ ')
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["即時排名","即時戰況"]):
+	elif(user_message in ["即時排名","即時戰況","排名"]):
 		message = TextSendMessage(text = leaderboard(3))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["時速"]):
