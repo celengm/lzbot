@@ -50,7 +50,7 @@ def get_score_sheet(list_top,list_name,list_target,target):
 
 	# Call the Sheets API
 	SPREADSHEET_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
-	RANGE_NAME = 'A2:Z17'
+	RANGE_NAME = 'A2:Z11'
 	result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
 												 range=RANGE_NAME).execute()
 	values = result.get('values', [])
@@ -93,6 +93,10 @@ def your_pants():
 		score_str += (list_name[i]+"\t還需要 "+list_time[i]+" 才能脫 "+list_name[i-1]+" 的褲子\n")
 	return score_str
 
+def readme():
+	with open('readme.txt', 'r') as f:
+		content = f.read()
+	return content
 			
 def slient_mode(user_message,event):
 	global mode
@@ -115,11 +119,27 @@ def active_mode(user_message,event):
 		mode = 1
 		message = TextSendMessage(text='我已經正在說話囉，歡迎來跟我互動 ^_^ ')
 		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["!使用說明書","!help","!說明書"]):
+		readme_text = readme()
+		message = TextSendMessage(text=readme_text)
+		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["即時排名","即時戰況","排名"]):
 		message = TextSendMessage(text = leaderboard(2))
 		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["分數差"]):
+		message = TextSendMessage(text = leaderboard(4)
+		line_bot_api.reply_message(event.reply_token,message)		
+	elif(user_message in ["場數差"]):
+		message = TextSendMessage(text = leaderboard(5)
+		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["追擊時間"]):
+		message = TextSendMessage(text = leaderboard(6)
+		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["時速"]):
 		message = TextSendMessage(text = leaderboard(7))
+		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["場速"]):
+		message = TextSendMessage(text = leaderboard(8))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["脫褲子","脫內褲"]):
 		score_str = your_pants()
