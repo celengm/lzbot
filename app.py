@@ -77,7 +77,7 @@ def leaderboard(key):
 	# print (list_top,list_name,list_score)
 	score_str = ""
 	for i in range(0,10):
-		score_str += (str(list_top[i])+"\t"+list_score[i]+"\n"+list_name[i])
+		score_str += (str(list_top[i])+"\t"+list_score[i]+"\n"+list_name[i]＋"\n")
 	# print(score_str)
 	return score_str
 
