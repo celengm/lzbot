@@ -142,7 +142,6 @@ def callback():
 def handle_message(event):
 	global mode 
 	print("now: "+str(today))
-	print("mode: "+str(mode))
 	print(event)		
 	user_message = event.message.text
 	
