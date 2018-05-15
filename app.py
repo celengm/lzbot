@@ -79,8 +79,32 @@ def leaderboard(key):
 	for i in range(0,10):
 		score_str += (str(list_top[i])+" --- "+list_score[i]+"\n【"+list_name[i]+"】\n")
 	# print(score_str)
-	score_str += str(time.strftime("%c"))
+	score_str += str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S"))
+	# score_str += str(time.strftime("%c"))
 	return score_str
+
+def event_progress():
+	# Setup the Sheets API
+	SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
+	store = file.Storage('credentials.json')
+	creds = store.get()
+	if not creds or creds.invalid:
+		flow = client.flow_from_clientsecrets('client_secret.json', SCOPES)
+		creds = tools.run_flow(flow, store)
+	service = build('sheets', 'v4', http=creds.authorize(Http()))
+
+	# Call the Sheets API
+	SPREADSHEET_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
+	RANGE_NAME = 'E15'
+	result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
+												 range=RANGE_NAME).execute()
+	values = result.get('values', [])
+	if not values:
+		print('No data found.')
+	else:
+		for row in values:	
+			return row[0]
+
 
 # def your_pants():
 # 	list_top = []
@@ -124,10 +148,10 @@ def active_mode(user_message,event):
 		readme_text = readme()
 		message = TextSendMessage(text=readme_text)
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["即時排名","即時戰況","排名","分數"]):
+	elif(user_message in ["即時排名","即時戰況","排名","分數","戰況"]):
 		message = TextSendMessage(text = leaderboard(2))
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["%數"]):
+	elif(user_message in ["%數","%"]):
 		message = TextSendMessage(text = leaderboard(3))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["分數差"]):
@@ -136,7 +160,7 @@ def active_mode(user_message,event):
 	elif(user_message in ["場數差"]):
 		message = TextSendMessage(text = leaderboard(6))
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["追擊時間","脫褲子","脫內褲"]):
+	elif(user_message in ["追擊時間","脫褲子","脫內褲","內褲","褲子"]):
 		message = TextSendMessage(text = leaderboard(7))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["時速"]):
@@ -144,6 +168,9 @@ def active_mode(user_message,event):
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["場速"]):
 		message = TextSendMessage(text = leaderboard(9))
+		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["活動進度"]):
+		message = TextSendMessage(text = event_progress())
 		line_bot_api.reply_message(event.reply_token,message)
 	
 # 監聽所有來自 /callback 的 Post Request
@@ -166,8 +193,9 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+	global timezone
 	global mode 
-	print("now: "+str(today))
+	print("now: "+str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")))	print("now: "+str(today))
 	print(event)		
 	user_message = event.message.text
 	
