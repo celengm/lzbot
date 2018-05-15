@@ -123,7 +123,7 @@ def active_mode(user_message,event):
 		readme_text = readme()
 		message = TextSendMessage(text=readme_text)
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["即時排名","即時戰況","排名"]):
+	elif(user_message in ["即時排名","即時戰況","排名","分數"]):
 		message = TextSendMessage(text = leaderboard(2))
 		line_bot_api.reply_message(event.reply_token,message)
 	elif(user_message in ["分數差"]):
