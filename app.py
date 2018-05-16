@@ -26,6 +26,9 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, ImageSendMessage , StickerSendMessage , ImageSendMessage , VideoSendMessage
 )
 
+score_sheet_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
+my_database_sheet_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
+
 app = Flask(__name__)
 # Channel Access Token
 line_bot_api = LineBotApi('LSZQfsnkkA1ODzqj3bPbe8lkiyW9aD22BLKsiw0B1o+yE5KS717frBcTy4Rb785oXnBlASYnpdyopKzaMhj2XkD4CEEUk3O88gxiMeRYcymrMg7irDdVuMJYWmJbIfZDJ79z925dwdXLMT6BANbGGwdB04t89/1O/w1cDnyilFU=')
@@ -64,7 +67,7 @@ def get_score_sheet(list_top,list_name,list_target,target):
 			list_top.append(row[0])
 			list_name.append(row[1])
 			list_target.append(row[target])
-			
+
 def auth_gss_client(path, scopes):
     credentials = ServiceAccountCredentials.from_json_keyfile_name(path,scopes)
     return gspread.authorize(credentials)
