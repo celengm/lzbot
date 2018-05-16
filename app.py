@@ -128,23 +128,34 @@ def readme():
 
 def room_get():
 	global my_database_sheet_ID
+	list_room = []
 	values = get_value_from_google_sheet(my_database_sheet_ID,'room!A1:A')
 	if not values:
 		print('No data found.')
 	else:
 		for row in values:	
-			return "當前房號為： "+row[0]
+			list_room.append(row[0])
+		return "當前房號1為： "+list_room[0]+"\n當前房號2為： "+list_room[1]
 
 def room_update(user_message):
-	room_number = user_message.lstrip("更新房號 ")
-	print("get new number : "+room_number)
+	global my_database_sheet_ID
+	room_number = user_message.split(" ",1)
+	print("get new number : "+room_number[1])
 
-	# Call the Sheets API
-	SPREADSHEET_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
-	wks = gss_client.open_by_key(SPREADSHEET_ID)
+	wks = gss_client.open_by_key(my_database_sheet_ID)
 	sheet = wks.worksheet('room')
-	sheet.update_acell('A1', room_number)
-	return "當前房號已更新為："+room_number	
+	sheet.update_acell('A1', room_number[1])
+	return "當前房號已更新為："+room_number[1]	
+
+def room_update2(user_message):
+	global my_database_sheet_ID
+	room_number = user_message.split(" ",1)
+	print("get new number : "+room_number[1])
+
+	wks = gss_client.open_by_key(my_database_sheet_ID)
+	sheet = wks.worksheet('room')
+	sheet.update_acell('A2', room_number[1])
+	return "當前房號2已更新為："+room_number[1]	
 
 			
 def slient_mode(user_message,event):
@@ -184,10 +195,12 @@ def active_mode(user_message,event):
 		message = leaderboard(9)
 	elif(user_message in ["活動進度",'進度']):
 		message = event_progress()
-	elif(user_message in ["房號"]):
+	elif(user_message in ["房號","room"]):
 		message = room_get()
-	elif(user_message.find("更新房號") == 0):
+	elif(user_message.find("room1") == 0):
 		message = room_update(user_message)
+	elif(user_message.find("room2") == 0):
+		message = room_update2(user_message)
 	
 	if message != "default" :
 		line_bot_api.reply_message(event.reply_token,TextSendMessage(text=message))
