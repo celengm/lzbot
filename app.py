@@ -79,7 +79,7 @@ def leaderboard(key):
 	for i in range(0,10):
 		score_str += (str(list_top[i])+" --- "+list_score[i]+"\n【"+list_name[i]+"】\n")
 	# print(score_str)
-	score_str += str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S"))
+	score_str += str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y/%m/%d %H:%M:%S"))
 	# score_str += str(time.strftime("%c"))
 	return score_str
 
@@ -155,7 +155,7 @@ def search_cmd(user_message):
 def active_mode(user_message,event):
 	global mode
 	message_get = search_cmd(user_message.lower())
-	
+
 	if str(message_get) != "not found in cmd list" :
 		line_bot_api.reply_message(event.reply_token,message_get)
 
@@ -181,7 +181,7 @@ def callback():
 def handle_message(event):
 	global timezone
 	global mode 
-	print("now: "+str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")))
+	print("now: "+str((datetime.datetime.now() + datetime.timedelta(hours=8)).strftime("%Y/%m/%d %H:%M:%S")))
 	print(event)		
 	user_message = event.message.text
 	
