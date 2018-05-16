@@ -145,7 +145,7 @@ def room_update(user_message):
 	wks = gss_client.open_by_key(my_database_sheet_ID)
 	sheet = wks.worksheet('room')
 	sheet.update_acell('A1', room_number[1])
-	return "當前房號已更新為："+room_number[1]	
+	return "當前房號1已更新為："+room_number[1]	
 
 def room_update2(user_message):
 	global my_database_sheet_ID
