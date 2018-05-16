@@ -38,7 +38,7 @@ now = datetime.datetime.now()
 today = time.strftime("%c")
 mode = 1
 
-def get_score_sheet(list_top,list_name,list_target,target):
+def get_value_from_google_sheet(SPREADSHEET_ID,RANGE_NAME):
 	# Setup the Sheets API
 	SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 	store = file.Storage('credentials.json')
@@ -49,11 +49,14 @@ def get_score_sheet(list_top,list_name,list_target,target):
 	service = build('sheets', 'v4', http=creds.authorize(Http()))
 
 	# Call the Sheets API
-	SPREADSHEET_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
-	RANGE_NAME = 'A2:Z11'
 	result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
 												 range=RANGE_NAME).execute()
-	values = result.get('values', [])
+	return result.get('values', [])
+
+
+def get_score_sheet(list_top,list_name,list_target,target):
+	global score_sheet_ID
+	values = get_value_from_google_sheet(score_sheet_ID,'A2:M11')
 	if not values:
 		print('No data found.')
 	else:
@@ -61,7 +64,7 @@ def get_score_sheet(list_top,list_name,list_target,target):
 			list_top.append(row[0])
 			list_name.append(row[1])
 			list_target.append(row[target])
-		
+			
 def auth_gss_client(path, scopes):
     credentials = ServiceAccountCredentials.from_json_keyfile_name(path,scopes)
     return gspread.authorize(credentials)
@@ -119,6 +122,27 @@ def readme():
 	with open('readme.txt', 'r') as f:
 		content = f.read()
 	return content
+
+def room_get():
+	global my_database_sheet_ID
+	values = get_value_from_google_sheet(my_database_sheet_ID,'room!A1:A')
+	if not values:
+		print('No data found.')
+	else:
+		for row in values:	
+			return "當前房號為： "+row[0]
+
+def room_update(user_message):
+	room_number = user_message.lstrip("更新房號 ")
+	print("get new number : "+room_number)
+
+	# Call the Sheets API
+	SPREADSHEET_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
+	wks = gss_client.open_by_key(SPREADSHEET_ID)
+	sheet = wks.worksheet('room')
+	sheet.update_acell('A1', room_number)
+	return "當前房號已更新為："+room_number	
+
 			
 def slient_mode(user_message,event):
 	global mode
@@ -157,6 +181,10 @@ def active_mode(user_message,event):
 		message = leaderboard(9)
 	elif(user_message in ["活動進度",'進度']):
 		message = event_progress()
+	elif(user_message in ["房號"]):
+		message = room_get()
+	elif(user_message.find("更新房號") == 0):
+		message = room_update(user_message)
 	
 	if message != "default" :
 		line_bot_api.reply_message(event.reply_token,TextSendMessage(text=message))
