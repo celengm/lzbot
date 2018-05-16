@@ -105,18 +105,15 @@ def event_progress():
 		for row in values:	
 			return row[0]
 
+def switch_still_on():
+	global mode	
+	mode = 1
+	return '我已經正在說話囉，歡迎來跟我互動 ^_^ '
 
-# def your_pants():
-# 	list_top = []
-# 	list_name = []
-# 	list_time = []
-# 	get_score_sheet(list_top,list_name,list_time,6)
-# 	# print (list_top,list_name,list_score)
-# 	score_str = ""
-# 	score_str += ("目前" + str(list_top[0])+"為\t"+list_name[0]+"\t\n")
-# 	for i in range(1,10):
-# 		score_str += (list_name[i]+"\t還需要 "+list_time[i]+" 才能脫 "+list_name[i-1]+" 的褲子\n")
-# 	return score_str
+def switch_off():
+	global mode	
+	mode = 0
+	return '好的，我乖乖閉嘴 > <，如果想要我繼續說話，請跟我說 「!說話」 > <'
 
 def readme():
 	with open('readme.txt', 'r') as f:
@@ -134,45 +131,33 @@ def slient_mode(user_message,event):
 		message = TextSendMessage(text='我已經閉嘴了 > <  (小聲)')
 		line_bot_api.reply_message(event.reply_token,message)
 
+def search_cmd(user_message):
+	operations_str = [
+	[["!閉嘴","!安靜","!你閉嘴","!你安靜"],switch_off()],
+	[["!說話"],switch_still_on()],
+	[["!使用說明書","!help","!說明書"],readme()],
+	[["即時排名","即時戰況",'排名','分數','戰況','score'],leaderboard(2)],
+	[["%數","%"],leaderboard(3)],
+	[['分數差'],leaderboard(5)],
+	[['場數差'],leaderboard(6)], 
+	[["追擊時間","脫褲子","脫內褲","內褲","褲子"],leaderboard(7)],
+	[['時速'],leaderboard(8)], 
+	[['場速'],leaderboard(9)],
+	[["活動進度",'進度'],event_progress()]
+	]
+
+	for i in range(len(operations_str)):
+		if user_message in operations_str[i][0]:
+			return TextSendMessage(text= operations_str[i][1])
+
+	return "not found in cmd list"
+
 def active_mode(user_message,event):
 	global mode
-	if(user_message in ["!閉嘴","!安靜","!你閉嘴","!你安靜"]):
-		mode = 0
-		message = TextSendMessage(text='好的，我乖乖閉嘴 > <，如果想要我繼續說話，請跟我說 「!說話」 > <')
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message == "!說話"):
-		mode = 1
-		message = TextSendMessage(text='我已經正在說話囉，歡迎來跟我互動 ^_^ ')
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["!使用說明書","!help","!說明書"]):
-		readme_text = readme()
-		message = TextSendMessage(text=readme_text)
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["即時排名","即時戰況","排名","分數","戰況"]):
-		message = TextSendMessage(text = leaderboard(2))
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["%數","%"]):
-		message = TextSendMessage(text = leaderboard(3))
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["分數差"]):
-		message = TextSendMessage(text = leaderboard(5))
-		line_bot_api.reply_message(event.reply_token,message)		
-	elif(user_message in ["場數差"]):
-		message = TextSendMessage(text = leaderboard(6))
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["追擊時間","脫褲子","脫內褲","內褲","褲子"]):
-		message = TextSendMessage(text = leaderboard(7))
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["時速"]):
-		message = TextSendMessage(text = leaderboard(8))
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["場速"]):
-		message = TextSendMessage(text = leaderboard(9))
-		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["活動進度"]):
-		message = TextSendMessage(text = event_progress())
-		line_bot_api.reply_message(event.reply_token,message)
-	
+	message_get = search_cmd(user_message.lower())
+	if str(message_get) != "not found in cmd list" :
+		line_bot_api.reply_message(event.reply_token,message_get)
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
