@@ -40,7 +40,7 @@ from linebot.models import (
 
 score_sheet_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
 my_database_sheet_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
-april_ID='Udf8f28a8b752786fa7a6be7d8c808ec6'
+april_ID="U1f099cb047cf1a1acf7d377810354403"
 
 app = Flask(__name__)
 # Channel Access Token
@@ -236,6 +236,8 @@ def active_mode(user_message,event):
 		message = event_remain_time()
 	elif(user_message in ["房號","room"]):
 		message = room_get()
+	elif(user_message in ["discord"]):
+		message = "https://discord.gg/4pY4B9d"
 	elif(user_message.find("room1") == 0):
 		message = room_update(user_message)
 	elif(user_message.find("room2") == 0):
