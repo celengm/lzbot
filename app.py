@@ -28,6 +28,7 @@ from linebot.models import (
 
 score_sheet_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
 my_database_sheet_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
+april_ID='Udf8f28a8b752786fa7a6be7d8c808ec6'
 
 app = Flask(__name__)
 # Channel Access Token
@@ -149,23 +150,36 @@ def room_get():
 def room_update(user_message):
 	global my_database_sheet_ID
 	room_number = user_message.split(" ",1)
-	print("get new number : "+room_number[1])
+	try:
+		print("get new number : "+room_number[1])
+	except:
+		return "請依照範例輸入：【room1 12345】"
 
-	wks = gss_client.open_by_key(my_database_sheet_ID)
-	sheet = wks.worksheet('room')
-	sheet.update_acell('A1', room_number[1])
-	return "當前房號1已更新為："+room_number[1]	
+	try:
+		wks = gss_client.open_by_key(my_database_sheet_ID)
+		sheet = wks.worksheet('room')
+		sheet.update_acell('A1', room_number[1])
+		return "當前房號1已更新為："+room_number[1]	
+	except:
+		line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
+		return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
 
 def room_update2(user_message):
 	global my_database_sheet_ID
 	room_number = user_message.split(" ",1)
-	print("get new number : "+room_number[1])
+	try:
+		print("get new number : "+room_number[1])
+	except:
+		return "請依照範例輸入：【room2 12345】"
 
-	wks = gss_client.open_by_key(my_database_sheet_ID)
-	sheet = wks.worksheet('room')
-	sheet.update_acell('A2', room_number[1])
-	return "當前房號2已更新為："+room_number[1]	
-
+	try:
+		wks = gss_client.open_by_key(my_database_sheet_ID)
+		sheet = wks.worksheet('room')
+		sheet.update_acell('A2', room_number[1])
+		return "當前房號1已更新為："+room_number[1]	
+	except:
+		line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
+		return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
 			
 def slient_mode(user_message,event):
 	global mode
@@ -173,7 +187,7 @@ def slient_mode(user_message,event):
 		mode = 1 
 		message = TextSendMessage(text='沒問題 ^_^，我來陪大家聊天惹，但如果覺得我太吵的話，請跟我說 「!閉嘴」 > <')
 		line_bot_api.reply_message(event.reply_token,message)
-	elif(user_message in ["!閉嘴","!安靜","!你閉嘴","!你安靜"]):
+	elif(user_message in ["!閉嘴"]):
 		mode = 0
 		message = TextSendMessage(text='我已經閉嘴了 > <  (小聲)')
 		line_bot_api.reply_message(event.reply_token,message)
@@ -182,7 +196,7 @@ def active_mode(user_message,event):
 	global mode
 	print ("start seraching key in cmd box ...")
 	message = "default"
-	if(user_message in ["!閉嘴","!安靜","!你閉嘴","!你安靜"]):
+		if(user_message in ["!閉嘴"]):
 		message = switch_off()
 	elif(user_message in ["!說話"]):
 		message = switch_still_on()
@@ -198,7 +212,7 @@ def active_mode(user_message,event):
 		message = leaderboard(5)
 	elif(user_message in ['場數差']):
 		message = leaderboard(6)
-	elif(user_message in ["追擊時間","脫褲子","脫內褲","內褲","褲子"]):
+	elif(user_message in ["追擊時間","脫褲子"]):
 		message = leaderboard(7)
 	elif(user_message in ['時速']):
 		message = leaderboard(8)
@@ -255,6 +269,9 @@ def handle_message(event):
 			text="(silent mode)" if mode == 0 else "(active mode)"
 		)
 		line_bot_api.reply_message(event.reply_token,message)
+	elif(user_message in ["!壞掉啦","呼叫工程師","呼叫四月"]):
+		line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
+		line_bot_api.reply_message(event.reply_token,TextSendMessage(text="已經幫您通知四月拔拔了! 請稍等~~"))
 	elif(mode == 0):
 		slient_mode(user_message,event) 
 	elif(mode == 1):
