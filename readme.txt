@@ -29,3 +29,4 @@ room2 (新房號2)
 房號、room
 room1 (新房號1)
 room2 (新房號2)
+discord
