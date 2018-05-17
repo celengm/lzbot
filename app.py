@@ -188,7 +188,7 @@ def room_update2(user_message):
 		wks = gss_client.open_by_key(my_database_sheet_ID)
 		sheet = wks.worksheet('room')
 		sheet.update_acell('A2', room_number[1])
-		return "當前房號1已更新為："+room_number[1]	
+		return "當前房號2已更新為："+room_number[1]	
 	except:
 		line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
 		return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
