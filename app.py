@@ -22,8 +22,18 @@ from linebot import (
 from linebot.exceptions import (
     InvalidSignatureError
 )
+
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, ImageSendMessage , StickerSendMessage , ImageSendMessage , VideoSendMessage
+	MessageEvent, TextMessage, TextSendMessage, ImageSendMessage , 
+	StickerSendMessage , ImageSendMessage , VideoSendMessage , TemplateSendMessage,
+	SourceUser, SourceGroup, SourceRoom,
+	TemplateSendMessage, ConfirmTemplate, MessageTemplateAction,
+	ButtonsTemplate, ImageCarouselTemplate, ImageCarouselColumn, URITemplateAction,
+	PostbackTemplateAction, DatetimePickerTemplateAction,
+	CarouselTemplate, CarouselColumn, PostbackEvent,
+	StickerMessage, StickerSendMessage, LocationMessage, LocationSendMessage,
+	ImageMessage, VideoMessage, AudioMessage, FileMessage,
+	UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent, BeaconEvent
 )
 
 score_sheet_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
@@ -149,11 +159,11 @@ def room_get():
 
 def room_update(user_message):
 	global my_database_sheet_ID
-	room_number = user_message.split(" ",1)
 	try:
+		room_number = user_message.split(" ",1)
 		print("get new number : "+room_number[1])
 	except:
-		return "請依照範例輸入：【room1 12345】"
+		return "【請依照範例輸入：】\nroom1 12345"
 
 	try:
 		wks = gss_client.open_by_key(my_database_sheet_ID)
@@ -166,11 +176,11 @@ def room_update(user_message):
 
 def room_update2(user_message):
 	global my_database_sheet_ID
-	room_number = user_message.split(" ",1)
 	try:
+		room_number = user_message.split(" ",1)
 		print("get new number : "+room_number[1])
 	except:
-		return "請依照範例輸入：【room2 12345】"
+		return "【請依照範例輸入：】\nroom2 12345"
 
 	try:
 		wks = gss_client.open_by_key(my_database_sheet_ID)
