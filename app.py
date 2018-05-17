@@ -196,7 +196,7 @@ def active_mode(user_message,event):
 	global mode
 	print ("start seraching key in cmd box ...")
 	message = "default"
-		if(user_message in ["!閉嘴"]):
+	if(user_message in ["!閉嘴"]):
 		message = switch_off()
 	elif(user_message in ["!說話"]):
 		message = switch_still_on()
