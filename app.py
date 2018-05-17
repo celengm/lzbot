@@ -7,6 +7,7 @@ import datetime
 import random
 import codecs
 import sys
+import json
 
 from apiclient.discovery import build
 from httplib2 import Http
@@ -35,6 +36,7 @@ from linebot.models import (
 	ImageMessage, VideoMessage, AudioMessage, FileMessage,
 	UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent, BeaconEvent
 )
+
 
 score_sheet_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
 my_database_sheet_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
