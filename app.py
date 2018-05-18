@@ -168,7 +168,7 @@ def room_update(user_message):
 		room_number = user_message.split(" ",1)
 		print("get new number : "+room_number[1])
 	except:
-		return "【請依照範例輸入：】\nroom1 12345"
+		return "【請依照範例輸入：】\nr1/room1 12345"
 
 	room1 = room_number[1]
 	return "當前房號1已更新為："+room_number[1]+"\n(目前與另群沒有同步更新)"	
@@ -189,7 +189,7 @@ def room_update2(user_message):
 		room_number = user_message.split(" ",1)
 		print("get new number : "+room_number[1])
 	except:
-		return "【請依照範例輸入：】\nroom2 12345"
+		return "【請依照範例輸入：】\nr2/room2 12345"
 
 	room2 = room_number[1]
 	return "當前房號2已更新為："+room_number[1]+"\n(目前與另群沒有同步更新)"	
@@ -244,13 +244,17 @@ def active_mode(user_message,event):
 		message = event_progress()
 	elif(user_message in ["剩餘時間"]):
 		message = event_remain_time()
-	elif(user_message in ["房號","room"]):
+	elif(user_message in ["房號","room","r","R","rm"]):
 		message = room_get()
 	elif(user_message in ["discord"]):
 		message = "https://discord.gg/4pY4B9d"
 	elif(user_message.find("room1") == 0):
 		message = room_update(user_message)
 	elif(user_message.find("room2") == 0):
+		message = room_update2(user_message)
+	elif(user_message.find("r1") == 0):
+		message = room_update(user_message)
+	elif(user_message.find("r2") == 0):
 		message = room_update2(user_message)
 	
 	if message != "default" :
