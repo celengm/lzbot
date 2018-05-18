@@ -184,7 +184,7 @@ def room_update(user_message):
 	# 	return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
 
 def room_update2(user_message):
-	global my_database_sheet_ID
+	global my_database_sheet_ID,room2
 	try:
 		room_number = user_message.split(" ",1)
 		print("get new number : "+room_number[1])
