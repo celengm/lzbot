@@ -17,6 +17,6 @@
 活動進度、進度
 剩餘時間
 房號、room、rm、R、r
-r1/room1 (新房號1)
-r2/room2 (新房號2)
+r1、room1 (新房號1)
+r2、room2 (新房號2)
 discord
