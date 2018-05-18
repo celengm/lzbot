@@ -38,6 +38,9 @@ from linebot.models import (
 )
 
 
+room1 = "waiting"
+room2 = "waiting"
+
 score_sheet_ID = '1F0aMMBcADRSXm07IT2Bxb_h22cIjNXlsCfBYRk53PHA'
 my_database_sheet_ID = '1RaGPlEJKQeg_xnUGi1mlUt95-Gc6n-XF_czwudIP5Qk'
 april_ID="U1f099cb047cf1a1acf7d377810354403"
@@ -160,21 +163,25 @@ def room_get():
 		return "當前房號1為： "+list_room[0]+"\n當前房號2為： "+list_room[1]
 
 def room_update(user_message):
-	global my_database_sheet_ID
+	global my_database_sheet_ID,room1
 	try:
 		room_number = user_message.split(" ",1)
 		print("get new number : "+room_number[1])
 	except:
 		return "【請依照範例輸入：】\nroom1 12345"
 
-	try:
-		wks = gss_client.open_by_key(my_database_sheet_ID)
-		sheet = wks.worksheet('room')
-		sheet.update_acell('A1', room_number[1])
-		return "當前房號1已更新為："+room_number[1]	
-	except:
-		line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
-		return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
+	room1 = room_number[1]
+	return "當前房號1已更新為："+room_number[1]+"\n(目前與另群沒有同步更新)"	
+
+	# try:
+	# 	wks = gss_client.open_by_key(my_database_sheet_ID)
+	# 	sheet = wks.worksheet('room')
+	# 	sheet.update_acell('A1', room_number[1])
+
+		
+	# except:
+	# 	line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
+	# 	return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
 
 def room_update2(user_message):
 	global my_database_sheet_ID
@@ -184,14 +191,17 @@ def room_update2(user_message):
 	except:
 		return "【請依照範例輸入：】\nroom2 12345"
 
-	try:
-		wks = gss_client.open_by_key(my_database_sheet_ID)
-		sheet = wks.worksheet('room')
-		sheet.update_acell('A2', room_number[1])
-		return "當前房號2已更新為："+room_number[1]	
-	except:
-		line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
-		return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
+	room2 = room_number[1]
+	return "當前房號2已更新為："+room_number[1]+"\n(目前與另群沒有同步更新)"	
+
+	# try:
+	# 	wks = gss_client.open_by_key(my_database_sheet_ID)
+	# 	sheet = wks.worksheet('room')
+	# 	sheet.update_acell('A2', room_number[1])
+	# 	return "當前房號2已更新為："+room_number[1]	
+	# except:
+	# 	line_bot_api.push_message(april_ID, TextSendMessage(text='智乃壞掉囉~~~'))
+	# 	return "看來是google又壞掉了QQ，我已經幫忙通知四月拔拔了! 請稍等~~"
 			
 def slient_mode(user_message,event):
 	global mode
