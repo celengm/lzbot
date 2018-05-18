@@ -152,15 +152,15 @@ def readme():
 	return content
 
 def room_get():
-	global my_database_sheet_ID
-	list_room = []
-	values = get_value_from_google_sheet(my_database_sheet_ID,'room!A1:A')
-	if not values:
-		print('No data found.')
-	else:
-		for row in values:	
-			list_room.append(row[0])
-		return "當前房號1為： "+list_room[0]+"\n當前房號2為： "+list_room[1]
+	global my_database_sheet_ID,room1,room2
+	# list_room = []
+	# values = get_value_from_google_sheet(my_database_sheet_ID,'room!A1:A')
+	# if not values:
+	# 	print('No data found.')
+	# else:
+	# 	for row in values:	
+	# 		list_room.append(row[0])
+	return "當前房號1為： "+room1+"\n當前房號2為： "+room2+"\n(目前與另群沒有同步更新)"	
 
 def room_update(user_message):
 	global my_database_sheet_ID,room1
