@@ -273,21 +273,21 @@ def active_mode(user_message,event):
 		message = event_progress()
 	elif(user_message in ["剩餘時間"]):
 		message = event_remain_time()
-	elif(user_message in ["房號","room","r","R","rm"]):
+	elif(user_message.lower() in ["房號","room","r","R","rm"]):
 		message = room_get()
-	elif(user_message in ["discord"]):
+	elif(user_message.lower() in ["discord"]):
 		message = "https://discord.gg/4pY4B9d"
-	elif(user_message.find("room1") == 0):
+	elif(user_message.lower().find("room1") == 0):
 		message = room_update(user_message)
-	elif(user_message.find("room2") == 0):
+	elif(user_message.lower().find("room2") == 0):
 		message = room_update2(user_message)
-	elif(user_message.find("r1") == 0):
+	elif(user_message.lower().find("r1") == 0):
 		message = room_update(user_message)
-	elif(user_message.find("r2") == 0):
+	elif(user_message.lower().find("r2") == 0):
 		message = room_update2(user_message)
-	elif(user_message.find("!fire") == 0):
+	elif(user_message.lower().find("!fire") == 0):
 		message = fire_calculator(user_message)
-	elif(user_message.find("!stone") == 0):
+	elif(user_message.lower().find("!stone") == 0):
 		message = stone_calculator(user_message)
 	
 	if message != "default" :
