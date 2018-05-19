@@ -65,7 +65,7 @@ def fire_calculator(user_message):
 	except:
 		return "【請依照範例輸入：】\n!fire (剩餘火量) (活動％,不用打％)"
 
-	message = "目前所剩火量:"+str(fire)+"\n您的％數:"+percent+" %\n可轉換分數:"+str(int(fire*3900/3*(1+(percent/100))))
+	message = "目前所剩火量:"+str(fire)+"\n您的％數:"+str(percent)+" %\n可轉換分數:"+str(int(fire*3900/3*(1+(percent/100))))
 	return message
 
 def stone_calculator(user_message):
@@ -83,7 +83,7 @@ def stone_calculator(user_message):
 	else:
 		for row in values:	
 			time = 126-round(float(row[0]),2)
-	message = "活動剩餘時間:"+str(round(time,2))+"\n目前所剩石頭量:"+str(stone)+"\n全速到結束所需石頭:"+str(int(time*25*3*100/10))+"\n仍缺少石頭:"+str(int(time*25*3*100/10)-stone)+"\n您的％數:"+percent+" %\n剩餘石頭可轉換分數:"+str(int(stone/100*10/3*3900*(1+((percent)/100))))
+	message = "活動剩餘時間:"+str(round(time,2))+"\n目前所剩石頭量:"+str(stone)+"\n全速到結束所需石頭:"+str(int(time*25*3*100/10))+"\n仍缺少石頭:"+str(int(time*25*3*100/10)-stone)+"\n您的％數:"+str(percent)+" %\n剩餘石頭可轉換分數:"+str(int(stone/100*10/3*3900*(1+((percent)/100))))
 	return message
 
 def get_value_from_google_sheet(SPREADSHEET_ID,RANGE_NAME):
