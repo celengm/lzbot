@@ -328,7 +328,7 @@ def active_mode(user_message,event):
 	elif(user_message.lower() == "!pt"):
 		message = percent_table()
 	elif(user_message.lower().find("!lz") == 0):
-		message = total_calculator()	
+		message = total_calculator(user_message)	
 
 
 	if message != "default" :
