@@ -16,5 +16,7 @@
 r1、room1 (新房號1)
 r2、room2 (新房號2)
 discord
-!fire(火量換算器)
-!stone(石頭換算器)
+!pt %數pt表
+!fire 火>分
+!stone 石>分
+!lz 火+石>分
